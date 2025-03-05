@@ -3,6 +3,7 @@ package com.example.hogwarts_artifacts_online.system.exceptions;
 import com.example.hogwarts_artifacts_online.artifact.ArtifactNotFoundException;
 import com.example.hogwarts_artifacts_online.system.Result;
 import com.example.hogwarts_artifacts_online.system.StatusCode;
+import com.example.hogwarts_artifacts_online.wizard.WizardNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -22,6 +23,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ArtifactNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Result handleArtifactNotFound(ArtifactNotFoundException ex){
+        return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(WizardNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Result handleWizardNotFound(WizardNotFoundException ex){
         return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
