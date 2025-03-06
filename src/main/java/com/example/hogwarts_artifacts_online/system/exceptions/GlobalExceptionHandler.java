@@ -3,6 +3,7 @@ package com.example.hogwarts_artifacts_online.system.exceptions;
 import com.example.hogwarts_artifacts_online.artifact.ArtifactNotFoundException;
 import com.example.hogwarts_artifacts_online.system.Result;
 import com.example.hogwarts_artifacts_online.system.StatusCode;
+import com.example.hogwarts_artifacts_online.user.UserNotFoundException;
 import com.example.hogwarts_artifacts_online.wizard.WizardNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -45,6 +46,13 @@ public class GlobalExceptionHandler {
 
         return  new Result(false, StatusCode.INVALID_ARGUMENT,
                 "Provided arguments are invalid, see data for details.",mp);
+
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Result handleUserNotFoundException(Exception ex){
+        return new Result(false, StatusCode.NOT_FOUND, ex.getMessage(), null);
 
     }
 }
